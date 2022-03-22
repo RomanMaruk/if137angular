@@ -14,6 +14,7 @@ import { RequestDataState } from 'src/app/store/request-data.state';
 export class FlightTicketComponent implements OnInit {
 
   @Select(RequestDataState.currency) currency$: Observable<string>
+  // @Select(RequestDataState.formData) formData: Observable<FormDataModel>
   formData: FormDataModel;
 
   @Input() flightInfo: FlightInfo;

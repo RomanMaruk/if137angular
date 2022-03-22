@@ -30,6 +30,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 describe('FlightTicketComponent', () => {
   let component: FlightTicketComponent;
@@ -39,7 +41,7 @@ describe('FlightTicketComponent', () => {
   let flightsInfoServiceMock: any;
   let requestDataService: any;
   let debugElement: any;
-  let requestDataState: any;
+  let requestDataState = new Subject();
   let formDataSubject = new Subject();
   let currency = new Subject();
 
@@ -63,6 +65,7 @@ describe('FlightTicketComponent', () => {
         ReactiveFormsModule,
         FormsModule,
         appState,
+        BrowserAnimationsModule,
         // ?
         MatSelectModule,
         MatAutocompleteModule,

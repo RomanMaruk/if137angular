@@ -12,6 +12,12 @@ a:hover {
   opacity: 0.7;
 }
 
+mat-card {
+  display: contents;
+  margin-bottom: 100px;
+  // margin-bottom: 20px;
+}
+
 .container {
   margin: 0 auto;
   padding: 0 20px;
@@ -28,6 +34,14 @@ a:hover {
   background-color: #fff;
   text-align: center;
   border-radius: 16px;
+}
+.data-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 40px;
 }
 .form-control {
   width: 450px;
@@ -52,9 +66,15 @@ a:hover {
   color: #fff;
   margin-bottom: 25px;
   cursor: pointer;
+  margin-bottom: 35px;
+  border: none;
 }
 .btn:hover {
   opacity: 0.9;
+}
+
+.mat-form-field input {
+  width: 700px;
 }
 
 

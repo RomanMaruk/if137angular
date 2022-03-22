@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { CurrentUserInterface } from '../../models/currentUser.interface';
 import { AuthService } from '../../service/auth.service';
@@ -15,12 +16,15 @@ export class RegisterComponent implements OnInit {
   hide: boolean = true;
   fireBaseErrorMessege: string = '';
   
-  registerForm: FormGroup;
+  registerForm: FormGroup = new FormGroup({
+    username: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(4)])
+  });
 
-  constructor(private fb: FormBuilder, private store: Store, private authService: AuthService) {}
+  constructor(private store: Store, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.initializeForm()
   }
 
   getErrorMessage() {
@@ -30,23 +34,23 @@ export class RegisterComponent implements OnInit {
     return
   }
 
-  initializeForm(): void {
-    this.registerForm = this.fb.group({
-      username: ['', Validators.required],
-      email: '',
-      password: ['', Validators.required]
-    })
-    console.log('initializeForm', this.registerForm.valid)
-  }
-
   onSubmit() {
-    console.log('Submit ', this.registerForm.value)
-    this.store.dispatch(new RegisterAction(this.registerForm.value))
+    if (this.registerForm.invalid) {
+      return
+    }
 
     this.authService.register(this.registerForm.value)
-    .subscribe((currentUser: CurrentUserInterface) => console.log('****Current USer', currentUser))
-
-    this.registerForm.reset()
+      .then((result) => {
+        if (result == null) {
+          this.router.navigate(['/'])
+        } else if (result.isValid == false) {
+          this.fireBaseErrorMessege = result.message
+          console.log('Error ', this.fireBaseErrorMessege);
+          
+        }
+      }).catch(() => {
+        
+      })
   }
 
 }
